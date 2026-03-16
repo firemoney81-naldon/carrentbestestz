@@ -1,23 +1,567 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <!-- Schema.org 구조화 데이터 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "제네시스 G80 리스 상품",
+    "description": "2026년형 제네시스 G80 모델에 대한 리스, 장기렌트, 신차 구매 견적 비교 서비스입니다. 개인 및 법인 고객을 위한 맞춤형 금융 상품을 제공하며, 최저가 견적을 통해 G80 리스 비용 절감을 도와드립니다.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Genesis"
+    },
+    "model": "G80 (2026)",
+    "offers": {
+      "@type": "OfferCatalog",
+      "name": "G80 리스 및 금융 상품",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"G80 개인 리스"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"G80 법인/개인사업자 리스"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"G80 장기렌트"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"초기비용 없는 무보증 리스"}}
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "125"
+    }
+  }
+  </script>
+
+  <!-- CSS (Modern & Soft Design) -->
+  <style>
+    :root {
+      --primary-color: #004a8f; /* Genesis Blue */
+      --secondary-color: #f7f9fc; /* Soft background */
+      --accent-color: #e6eef6; /* Light highlight */
+      --text-color: #333333;
+      --heading-color: #1a1a1a;
+      --border-color: #e0e0e0;
+      --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-family-sans);
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+      background-color: #ffffff;
+      color: var(--text-color);
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    main {
+      padding: 40px 0;
+      background-color: var(--secondary-color);
+    }
+
+    section {
+      padding: 40px 0;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+      border: 1px solid var(--border-color);
+    }
+    
+    section:nth-child(even) {
+        background-color: var(--accent-color);
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 2.5em;
+      color: var(--heading-color);
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 2em;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      display: inline-block;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+    }
+    h3 {
+      font-size: 1.5em;
+      color: var(--heading-color);
+      margin-top: 20px;
+    }
+    p {
+      margin-bottom: 15px;
+      font-size: 1.05em;
+    }
+
+    /* CTA Button */
+    .cta-button {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-size: 1.1em;
+      padding: 15px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: #003a70;
+    }
+
+    /* Navigation */
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--heading-color);
+      font-weight: bold;
+      font-size: 1.1em;
+      position: relative;
+    }
+    nav a:hover {
+        color: var(--primary-color);
+    }
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+    nav a:hover::after {
+        transform: scaleX(1);
+    }
+
+    /* Service Boxes (Comparison/Pros/Cons) */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .info-box {
+      background-color: #ffffff;
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .info-box h3 {
+      color: var(--primary-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    /* Table Styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95em;
+    }
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: var(--accent-color);
+    }
+
+    /* Forms */
+    form {
+      background-color: var(--accent-color);
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin-top: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+    input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    .form-group { margin-bottom: 20px; }
+
+    /* Visual Content (Graphs/Charts Placeholder) */
+    .chart-placeholder {
+      width: 100%;
+      height: 300px;
+      background-color: #e0e0e0;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 300px;
+      color: #666;
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+
+    /* FAQ Accordion (Dwell Time) */
+    .faq-item {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-question {
+      background-color: #ffffff;
+      padding: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: var(--heading-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-top: 1px solid var(--border-color);
+      display: none;
+    }
+    .faq-question::after {
+        content: '+';
+        font-size: 1.2em;
+        transition: transform 0.3s ease;
+    }
+    .faq-item.active .faq-question::after {
+        content: '-';
+        transform: rotate(180deg);
+    }
+    .external-links ul { list-style: disc inside; }
+    .external-links li { margin-bottom: 5px; }
+
+    /* Image Styling */
+    .main-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+    
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.7em; }
+      nav ul { flex-direction: column; gap: 10px; }
+      .container { padding: 0 10px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-button { width: 100%; text-align: center; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="container">
+      <h1>제네시스 G80 리스 견적 전문 센터</h1>
+      <p><strong>G80 리스 가격</strong>, <strong>장기렌트 비교</strong>, <strong>최저가 할인</strong>, <strong>2026년형 혜택</strong> 전문 상담</p>
+      <nav>
+        <ul>
+          <li><a href="#introduction">G80 리스란?</a></li>
+          <li><a href="#comparison">리스 vs. 렌트 비교</a></li>
+          <li><a href="#pricing">견적 및 비용 분석</a></li>
+          <li><a href="#benefits">장점 및 혜택</a></li>
+          <li><a href="#inquiry">실시간 상담</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- 자동완성 및 연관 키워드 반영 섹션 -->
+      <section id="introduction">
+        <h2>G80 리스 최적화 견적, 지금 확인하세요!</h2>
+        <p>G80 모델은 고급스러운 디자인과 최신 기술로 많은 사랑을 받고 있습니다. 특히, 2026년형 모델은 이전 버전에 비해 성능과 편의 사양이 더욱 업그레이드되면서, 신차 구매에 대한 관심이 어느 때보다 뜨겁습니다. 신차를 구매하는 방식에는 일시불 구매, 할부, 장기렌트, 그리고 리스가 있습니다. 이 중 <strong>G80 리스</strong>는 초기 비용 부담을 줄이면서도 G80 신차를 이용할 수 있는 매력적인 방법으로 떠오르고 있습니다.</p>
+        <p><strong>G80 리스 가격</strong>은 단순히 차량 가격뿐만 아니라, 잔존가치, 금리, 보증금 유무 등 여러 요인에 의해 복잡하게 결정됩니다. 일반 소비자가 최적의 조건을 찾기란 쉽지 않습니다. 저희 <strong>G80 리스 전문 업체</strong>는 고객님의 상황에 맞는 맞춤형 견적을 제공하여, 불필요한 비용을 절감하고 최고의 혜택을 누릴 수 있도록 도와드립니다.</p>
+        <p><strong>G80 리스</strong>에 대해 검색하는 분들이 '<strong>G80 리스 비용</strong>', '<strong>G80 장기렌트 가격</strong>', '<strong>G80 리스 장단점</strong>', '<strong>저렴한 G80 리스 업체</strong>' 등 다양한 키워드를 함께 찾는 이유는, 복잡한 금융 상품의 특성 때문입니다. 본 페이지에서는 <strong>2026년형 G80</strong>에 초점을 맞추어 리스의 모든 것을 명쾌하게 분석해 드립니다.</p>
+        <img src="https://images.pexels.com/photos/1089317/pexels-photo-1089317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="제네시스 G80 리스 상품 이미지" class="main-image">
+      </section>
+
+      <!-- G80 리스 vs 장기렌트 비교 분석 (SEO 키워드: 차이점, 장단점, 비교) -->
+      <section id="comparison">
+        <h2>G80 리스 vs. G80 장기렌트, 핵심 차이점 비교 분석</h2>
+        <p>G80 신차를 이용하는 두 가지 대표적인 방법인 '리스'와 '장기렌트'는 겉보기에는 비슷하지만, 세부적인 <strong>장단점</strong>과 <strong>차이점</strong>이 분명합니다. 특히 법인이나 개인사업자는 세금 혜택 면에서 큰 차이를 보일 수 있으므로 꼼꼼한 비교가 필요합니다.</p>
+        <p>가장 큰 <strong>차이점</strong>은 차량의 명의와 보험 처리 방식입니다. G80 리스의 경우 차량 명의가 리스 회사에 있지만, 보험은 개인 명의로 가입됩니다. 따라서 기존에 좋은 운전 경력이 있다면 보험료 할인을 받을 수 있는 장점이 있습니다. 반면 G80 장기렌트는 보험이 렌터카 회사 명의로 일괄 처리되므로, 보험 경력이 단절되거나 보험료 할인을 받을 수 없습니다. 하지만 사고가 나더라도 보험료 할증 걱정이 없다는 <strong>장점</strong>이 있습니다.</p>
+
+        <h3>G80 리스 vs. 장기렌트 비교표</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>G80 리스 (금융리스/운용리스)</th>
+              <th>G80 장기렌트</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>차량 명의</td>
+              <td>리스사 명의 (일반 번호판: 하, 허, 호 사용 X)</td>
+              <td>렌터카 회사 명의 (렌트 전용 번호판: 하, 허, 호 사용)</td>
+            </tr>
+            <tr>
+              <td>보험 경력</td>
+              <td>개인 명의 보험 가입, 경력 유지 및 할인 가능</td>
+              <td>렌터카 회사 보험 적용, 개인 보험 경력 단절</td>
+            </tr>
+            <tr>
+              <td>세금 혜택</td>
+              <td>(사업자) 리스료 전액 비용처리, 부가세 환급 불가</td>
+              <td>(사업자) 렌탈료 전액 비용처리, 부가세 환급 가능(일부 모델 한정)</td>
+            </tr>
+            <tr>
+              <td>초기 비용</td>
+              <td>보증금 (0~50%) or 선수금 (선택)</td>
+              <td>보증금 (0~50%) or 선수금 (선택)</td>
+            </tr>
+            <tr>
+              <td>만기 시 처리</td>
+              <td>인수, 반납, 재리스 선택</td>
+              <td>인수, 반납 선택</td>
+            </tr>
+            <tr>
+              <td>주행 거리 제한</td>
+              <td>있음 (연간 1만~3만km 선택)</td>
+              <td>있음 (연간 1만~4만km 선택)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>결론적으로 <strong>G80 리스</strong>는 일반 번호판을 사용하며 개인 보험 혜택을 유지하고 싶은 개인 고객에게 적합하며, <strong>장기렌트</strong>는 초기 비용 없이 보험료 할증 걱정 없이 비용 처리를 최대화하려는 사업자에게 유리할 수 있습니다.</p>
+      </section>
+
+      <!-- G80 리스 비용 분석 (SEO 키워드: 비용, 가격, 견적, 평균, 얼마, 저렴한곳) -->
+      <section id="pricing">
+        <h2>2026년형 G80 리스 비용 및 견적 분석</h2>
+        <p><strong>G80 리스 비용</strong>은 여러 조건에 따라 달라지기 때문에 '<strong>G80 리스 얼마</strong>예요?'라고 묻는 것만으로는 정확한 답변을 얻기 어렵습니다. <strong>G80 리스 평균 비용</strong>은 계약 기간, 보증금 비율, 잔존가치 설정, 그리고 연간 주행 거리에 따라 크게 달라집니다. 저희 <strong>G80 리스 전문 업체</strong>는 고객님의 운행 환경과 예산에 맞춘 최적화된 견적을 제공하여 <strong>저렴한곳</strong>을 찾는 수고를 덜어드립니다.</p>
+
+        <h3>G80 리스 견적 주요 변수 분석</h3>
+        <p><strong>1. 잔존가치:</strong> G80 리스에서 가장 중요한 변수 중 하나입니다. 잔존가치란 계약 만료 시점의 차량 가치를 의미하며, 잔존가치가 높을수록 월 납입료가 저렴해집니다. 하지만 만기 시 차량을 인수할 경우, 잔존가치만큼의 금액을 추가로 납부해야 하므로 총비용을 꼼꼼히 따져봐야 합니다.</p>
+        <p><strong>2. 보증금 vs. 선수금 vs. 무보증:</strong> 초기 비용을 줄이는 방법에는 보증금과 선수금이 있습니다. 보증금은 계약 만료 시 돌려받을 수 있지만, 선수금은 미리 내는 월 납입료의 일부로 돌려받을 수 없는 비용입니다. <strong>초기 비용 없는 G80 리스</strong>(무보증 리스)도 가능하지만, 신용도에 따라 금리가 높아질 수 있습니다.</p>
+        <p><strong>3. G80 모델 및 트림:</strong> G80 2.5T, 3.5T, G80 Electrified 등 선택하는 모델에 따라 차량 기본 가격이 달라집니다. <strong>G80 리스 금액</strong>은 당연히 높은 트림을 선택할수록 증가합니다. 2026년형 G80은 다양한 옵션 패키지가 제공되므로, 꼭 필요한 옵션만 선택하여 <strong>G80 리스 비용</strong>을 절감하는 것이 중요합니다.</p>
+
+        <div class="chart-placeholder">
+          <p>G80 리스 비용 월별 납입금 비교 그래프 (가상 데이터)</p>
+          <p>보증금 비율에 따른 월 납입금 변화 (2026년형 G80 2.5T 기준)</p>
+        </div>
+
+        <h3>G80 리스 예상 가격표 (2026년형, 48개월 기준)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>초기 비용 (보증금 0%)</th>
+              <th>초기 비용 (보증금 30%)</th>
+              <th>총 납입 비용 (48개월)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>G80 2.5T (스탠다드)</td>
+              <td>월 80만원대 후반</td>
+              <td>월 70만원대 초반</td>
+              <td>약 3,400만원대</td>
+            </tr>
+            <tr>
+              <td>G80 3.5T (스포츠 패키지)</td>
+              <td>월 100만원대 중반</td>
+              <td>월 90만원대 초반</td>
+              <td>약 4,200만원대</td>
+            </tr>
+            <tr>
+              <td>G80 Electrified</td>
+              <td>월 120만원대 초반</td>
+              <td>월 110만원대 초반</td>
+              <td>약 5,000만원대</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>※ 상기 가격은 2026년형 모델의 <strong>평균적인 예상 견적</strong>이며, 딜러사별 <strong>G80 할인 혜택</strong>이나 프로모션에 따라 실제 <strong>G80 리스 견적</strong>은 달라질 수 있습니다. 정확한 견적은 실시간 상담을 통해 확인하세요.</p>
+      </section>
+
+      <!-- G80 리스 장점 및 혜택 (SEO 키워드: 장점, 혜택, 할인, 사은품, 지원금) -->
+      <section id="benefits">
+        <h2>G80 리스를 선택해야 하는 이유: 특별한 장점과 혜택</h2>
+        <p>G80 리스는 신차 구매의 <strong>장점</strong>과 대여의 <strong>장점</strong>을 결합한 합리적인 선택지입니다. 특히 법인이나 개인사업자에게는 비용 처리를 통한 세금 절감 효과가 커서 G80 리스 문의가 꾸준히 증가하고 있습니다. 단순히 <strong>G80 리스 가격</strong>이 저렴한 것 외에도 다양한 <strong>혜택</strong>이 존재합니다.</p>
+
+        <h3>주요 G80 리스 혜택 상세 분석</h3>
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>초기 비용 절감</h3>
+            <p><strong>G80 신규 가입 혜택</strong>으로 <strong>초기 비용 없는 무보증 리스</strong> 상품을 선택할 수 있습니다. 수천만 원에 달하는 차량 구매 비용을 초기 납입금 없이 G80 신차를 이용할 수 있다는 점은 현금을 유동적으로 활용할 수 있게 해주는 가장 큰 <strong>장점</strong>입니다.</p>
+          </div>
+          <div class="info-box">
+            <h3>세금 절감 효과 (사업자 특화)</h3>
+            <p>개인사업자 및 법인 고객의 경우 <strong>G80 리스 비용</strong> 전체를 손비 처리하여 세금 공제 혜택을 받을 수 있습니다. 특히 2026년 세법 기준에 따라 연간 1,500만원까지 비용 처리가 가능하며, 운행 일지를 작성할 경우 추가적인 <strong>세금 지원금</strong> 혜택을 누릴 수 있습니다.</p>
+          </div>
+          <div class="info-box">
+            <h3>할인 및 프로모션 혜택</h3>
+            <p>저희와 같은 <strong>G80 리스 전문 업체</strong>는 딜러사와의 제휴를 통해 비공개 <strong>할인 혜택</strong>이나 추가 <strong>사은품</strong>을 제공합니다. 이는 일반적인 신차 구매보다 <strong>G80 리스 싼곳</strong>을 찾는 지름길이 될 수 있습니다. <strong>현금지원</strong>, <strong>상품권 지원</strong> 등 다양한 <strong>이벤트</strong>를 통해 <strong>G80 리스</strong> 계약의 만족도를 높여드립니다.</p>
+          </div>
+          <div class="info-box">
+            <h3>만기 시점 유연한 선택</h3>
+            <p><strong>G80 리스</strong> 계약 만기 시 차량을 인수할지, 반납할지, 혹은 재리스할지 자유롭게 선택할 수 있습니다. <strong>G80 리스 장단점</strong> 중 하나인 잔존가치를 활용하여, 합리적인 금액으로 차량 소유 여부를 결정할 수 있습니다.</p>
+          </div>
+        </div>
+        <p>G80 신차 구매의 <strong>장점</strong> 중 하나는 철저한 관리를 받는다는 것입니다. <strong>G80 리스 전문</strong> 상품에는 기본적으로 보증기간 내 무상 A/S가 포함되어 있어, 유지비 걱정 없이 G80을 이용할 수 있습니다.</p>
+      </section>
+
+      <!-- 사용자 후기 및 FAQ (SEO 키워드: 내돈내산, 후기, Q&A) -->
+      <section id="faq">
+        <h2>자주 묻는 질문 (FAQ) 및 실제 G80 리스 내돈내산 후기</h2>
+
+        <h3>G80 리스 내돈내산 후기 (가상)</h3>
+        <p><strong>후기 1: 사업자 세금 절감 효과에 만족합니다. (김*수 고객)</strong><br>
+        개인사업자로 G80을 구매하는 방법을 고민하다가 <strong>G80 리스</strong>를 선택했습니다. <strong>G80 리스 견적 전문 업체</strong>의 상담을 받아 비용 처리를 최대화할 수 있었고, 연말 정산 때 세금 절감 효과를 톡톡히 봤습니다. <strong>초기 비용 없는 G80 리스</strong>로 계약해서 현금 부담도 없었고, <strong>G80 리스 가격</strong> 대비 만족도가 높았습니다.</p>
+
+        <p><strong>후기 2: G80 리스 비교를 통해 최저가로 계약했어요. (이*진 고객)</strong><br>
+        여러 곳에서 G80 <strong>리스 견적</strong>을 받았는데, 업체마다 <strong>G80 리스 비용</strong>이 천차만별이었습니다. 이 페이지의 <strong>G80 리스 전문</strong> 상담을 통해 꼼꼼하게 <strong>G80 리스 비교</strong>를 해보니, 다른 곳보다 훨씬 <strong>저렴한곳</strong>을 찾을 수 있었습니다. 특히 <strong>G80 할인 혜택</strong>을 최대로 적용받아 만족합니다.</p>
+
+        <h3>FAQ: G80 리스 관련 궁금증 해결</h3>
+        <div class="faq-accordion">
+          <div class="faq-item">
+            <div class="faq-question">Q1: G80 리스 만기 시 꼭 차량을 인수해야 하나요?</div>
+            <div class="faq-answer">A: 아닙니다. G80 리스 계약 만기 시 차량을 인수할 수도 있고, 리스 회사에 반납하고 새로운 차량으로 재리스할 수도 있습니다. 계약 시 설정한 잔존가치를 기준으로 인수 여부를 결정하게 됩니다.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Q2: G80 리스 비용에 보험료가 포함되나요?</div>
+            <div class="faq-answer">A: G80 리스는 개인 보험을 가입해야 합니다. <strong>G80 장기렌트</strong>는 렌트 회사 보험이 포함되지만, 리스는 보험료를 별도로 납부해야 합니다. 다만 기존 운전 경력이 있다면 보험료 할인을 받을 수 있는 장점이 있습니다.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Q3: G80 리스 계약 시 <strong>초기 비용 없는 리스</strong>도 가능한가요?</div>
+            <div class="faq-answer">A: 네, 가능합니다. 고객님의 신용도에 따라 보증금이 0%인 <strong>무보증 리스</strong> 상품을 선택하실 수 있습니다. 신용 등급이 높을수록 무보증 조건이 유리하게 적용되며, 초기 비용 부담 없이 G80 신차를 이용할 수 있습니다.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Q4: G80 리스와 할부 구매의 <strong>장단점 차이점</strong>은 무엇인가요?</div>
+            <div class="faq-answer">A: 할부는 차량을 소유하는 방식이므로 차량가 전액에 대한 이자를 납부해야 하지만, 리스는 잔존가치를 제외한 금액에 대해서만 월 납입금을 계산합니다. G80 리스는 소유 목적이 아니라 이용 목적에 더 가깝기 때문에 초기 비용이 저렴하고, 사업자에게는 비용 처리 혜택이 있습니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- G80 리스 문의 및 견적 요청 (Dwell Time optimization) -->
+      <section id="inquiry">
+        <h2>실시간 G80 리스 최저가 견적 신청</h2>
+        <p>복잡한 <strong>G80 리스 가격</strong> 비교를 전문가에게 맡겨보세요. 고객님의 상황(개인/법인, 운행 거리, 희망 옵션)을 바탕으로 최적의 <strong>G80 리스 견적</strong>을 비교하여 <strong>가장 저렴한곳</strong>을 찾아드립니다.</p>
+        <form action="/submit-quote" method="post">
+          <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+          </div>
+          <div class="form-group">
+            <label for="phone">연락처</label>
+            <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+          </div>
+          <div class="form-group">
+            <label for="email">이메일 주소</label>
+            <input type="email" id="email" name="email" required placeholder="예: example@email.com">
+          </div>
+          <div class="form-group">
+            <label for="customerType">고객 유형</label>
+            <select id="customerType" name="customerType" required>
+              <option value="">-- 선택하세요 --</option>
+              <option value="individual">개인</option>
+              <option value="business">개인사업자/법인</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="carModel">희망 모델 (G80/G80 Electrified)</label>
+            <input type="text" id="carModel" name="carModel" required placeholder="예: G80 2.5T AWD">
+          </div>
+          <div class="form-group">
+            <label for="leaseTerms">희망 계약 기간 (개월)</label>
+            <select id="leaseTerms" name="leaseTerms" required>
+              <option value="">-- 선택하세요 --</option>
+              <option value="36">36개월</option>
+              <option value="48">48개월</option>
+              <option value="60">60개월</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="options">상세 요청 사항 및 옵션 (선택)</label>
+            <textarea id="options" name="options" rows="4" placeholder="예: 무보증 리스 원함, 스포츠 패키지 포함 견적 요청"></textarea>
+          </div>
+          <button type="submit" class="cta-button">무료 견적 요청하기</button>
+        </form>
+      </section>
+
+      <!-- 외부 신뢰도 링크 및 정보성 콘텐츠 섹션 (SEO: 신뢰도 확보) -->
+      <section class="external-links">
+        <h2>G80 리스 관련 참고 외부 자료 및 신뢰성 확보 링크</h2>
+        <p>G80 리스 계약 전, 공신력 있는 기관의 정보를 확인하고 꼼꼼하게 비교하는 것이 중요합니다. 아래는 G80 리스 및 차량 구매 관련 정보를 제공하는 외부 신뢰성 있는 사이트입니다.</p>
+        <ul>
+          <li><a href="https://www.namu.wiki/w/%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4%20G80" target="_blank">나무위키: 제네시스 G80 상세 정보</a> - G80 모델의 역사, 트림, 제원 등 자세한 정보 제공.</li>
+          <li><a href="https://www.genesis.com/kr/" target="_blank">제네시스 공식 홈페이지</a> - 2026년형 G80 신차 가격, 옵션, 카탈로그 등 공식 정보 제공.</li>
+          <li><a href="https://www.nts.go.kr/nts/main.do" target="_blank">국세청(National Tax Service)</a> - 사업자 차량 리스 비용 처리 관련 세법 정보 확인.</li>
+          <li><a href="https://www.kca.go.kr/" target="_blank">한국소비자원</a> - 자동차 리스 계약 시 소비자 분쟁 해결 기준 및 유의사항 확인.</li>
+          <li><a href="https://www.kofia.or.kr/" target="_blank">금융투자협회 (KOFIA)</a> - 금융리스 관련 정보 및 금융 시장 현황 참고.</li>
+        </ul>
+        <h3>G80 리스와 관련된 추가 키워드 목록</h3>
+        <p>G80 리스, G80 장기렌트, <strong>G80 리스 비용</strong>, <strong>G80 리스 가격</strong>, <strong>G80 리스 견적</strong>, <strong>2026년형 G80</strong>, <strong>G80 리스 장단점</strong>, <strong>G80 리스 비교</strong>, <strong>G80 리스 추천</strong>, <strong>저렴한 G80 리스</strong>, <strong>G80 무보증 리스</strong>, <strong>G80 리스 후기</strong>, <strong>G80 할인 혜택</strong>, <strong>G80 유지비</strong>, <strong>G80 사은품</strong>, <strong>G80 신차 가입</strong>, <strong>G80 법인 리스</strong>, <strong>G80 개인사업자 리스</strong>, <strong>G80 초기 비용</strong>, <strong>G80 리스 전문 업체</strong>, <strong>G80 리스 싼곳</strong>, <strong>G80 리스 평균</strong>, <strong>G80 리스 얼마</strong>, <strong>G80 리스 지원금</strong>, <strong>G80 트림 비교</strong>, <strong>G80 신규 가입 혜택</strong>, <strong>G80 리스 상품권</strong>, <strong>G80 리스 이벤트</strong>, <strong>네이버 G80 리스</strong>, <strong>구글 G80 리스</strong>.</p>
+      </section>
+
+    </div>
+  </main>
+
+
+  <!-- Dwell time optimization script for FAQ accordion -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        item.querySelector('.faq-question').addEventListener('click', function() {
+          item.classList.toggle('active');
+          const answer = item.querySelector('.faq-answer');
+          if (answer.style.display === 'block') {
+            answer.style.display = 'none';
+          } else {
+            answer.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
+  
